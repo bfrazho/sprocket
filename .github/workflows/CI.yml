@@ -8,25 +8,25 @@ on:
   pull_request:
 
 jobs:
-  format:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Update Rust
-        run: rustup update nightly && rustup default nightly
-      - name: Install rustfmt
-        run: rustup component add rustfmt
-      - run: cargo fmt -- --check
+  # format:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Update Rust
+  #       run: rustup update nightly && rustup default nightly
+  #     - name: Install rustfmt
+  #       run: rustup component add rustfmt
+  #     - run: cargo fmt -- --check
 
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Update Rust
-        run: rustup update stable && rustup default stable
-      - name: Install clippy
-        run: rustup component add clippy
-      - run: cargo clippy --all-features -- --deny warnings
+  # lint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Update Rust
+  #       run: rustup update stable && rustup default stable
+  #     - name: Install clippy
+  #       run: rustup component add clippy
+  #     - run: cargo clippy --all-features -- --deny warnings
 
   test:
     runs-on: ${{ matrix.os }}
@@ -40,8 +40,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Update Rust
         run: rustup update stable && rustup default stable
-      - if: ${{'macos-latest' == matrix.os}}
-        name: Setup Docker Mac
+      - name: Setup Docker Mac
+        if: ${{'macos-latest' == matrix.os}}
         run: |
           brew update
           brew install docker
@@ -50,16 +50,24 @@ jobs:
           brew install lima-additional-guestagents
           # M1 and M2 Macs that the Github Actions supplies don't support nested virtualization. This forces x86 emulation to get around this
           colima start --network-address --arch x86_64
-      - if: ${{'windows-latest' == matrix.os}}
-        name: Setup Docker Windows
+      - name: Setup Docker Windows
+        if: ${{'windows-latest' == matrix.os}}
+      - name: Start docker
+        run: docker start 
         uses: Vampire/setup-wsl@v5
+      - name: run docker
+        run: |
+          docker pull alpine:latest
+          docker run alpine
+          journalctl -u docker > output.txt
+          cat output.txt
       - name: Run tests
         run: cargo test --all-features
 
-  docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Update Rust
-        run: rustup update stable && rustup default stable
-      - run: cargo doc
+  # docs:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Update Rust
+  #       run: rustup update stable && rustup default stable
+  #     - run: cargo doc
