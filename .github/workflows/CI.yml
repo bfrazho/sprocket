@@ -62,7 +62,7 @@ jobs:
           # echo "finished install"
           curl -L --url "https://github.com/rancher-sandbox/rancher-desktop/releases/download/v1.19.1/Rancher.Desktop.Setup.1.19.1.msi" -o RancherDesktopInstaller.msi
           Start-Process msiexec -ArgumentList "/package RancherDesktopInstaller.msi /norestart /passive" -Wait
-          
+          rancher --help
           dockerd --help
       - name: run docker
         run: |
