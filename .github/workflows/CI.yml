@@ -64,8 +64,8 @@ jobs:
       - name: run docker
         run: |
           docker info
-          docker pull alpine:latest
-          docker run alpine
+          docker pull --platform linux/amd64 alpine:latest
+          docker run --platform linux/amd64 alpine
           
       - name: Run tests
         run: cargo test --all-features
