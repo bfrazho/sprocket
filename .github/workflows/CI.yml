@@ -56,10 +56,11 @@ jobs:
       - name: Setup Docker Windows
         if: ${{'windows-latest' == matrix.os}}
         run: |
-          curl --url "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe" -o DockerDesktopInstaller.exe
-          echo "finished downloading. Starting install"
-          Start-Process 'DockerDesktopInstaller.exe' -Wait -ArgumentList 'install', '--quiet', '--accept-license'
-          echo "finished install"
+          # curl --url "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe" -o DockerDesktopInstaller.exe
+          # echo "finished downloading. Starting install"
+          # Start-Process 'DockerDesktopInstaller.exe' -Wait -ArgumentList 'install', '--quiet', '--accept-license'
+          # echo "finished install"
+          dockerd --help
       - name: run docker
         run: |
           docker info
