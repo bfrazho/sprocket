@@ -60,7 +60,7 @@ jobs:
           # echo "finished downloading. Starting install"
           # Start-Process 'DockerDesktopInstaller.exe' -Wait -ArgumentList 'install', '--quiet', '--accept-license'
           # echo "finished install"
-          curl --url "https://github.com/rancher-sandbox/rancher-desktop/releases/download/v1.19.1/Rancher.Desktop.Setup.1.19.1.msi" -o RancherDesktopInstaller.msi
+          curl -L --url "https://github.com/rancher-sandbox/rancher-desktop/releases/download/v1.19.1/Rancher.Desktop.Setup.1.19.1.msi" -o RancherDesktopInstaller.msi
           msiexec /package RancherDesktopInstaller.msi /norestart /passive
           
           dockerd --help
