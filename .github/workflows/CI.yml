@@ -52,8 +52,6 @@ jobs:
           colima start --network-address --arch x86_64
       - name: Setup Docker Windows
         if: ${{'windows-latest' == matrix.os}}
-      - name: Start docker
-        run: docker start 
         uses: Vampire/setup-wsl@v5
       - name: run docker
         run: |
