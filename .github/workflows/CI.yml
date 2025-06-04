@@ -50,9 +50,14 @@ jobs:
           brew install lima-additional-guestagents
           # M1 and M2 Macs that the Github Actions supplies don't support nested virtualization. This forces x86 emulation to get around this
           colima start --network-address --arch x86_64
-      - name: Setup Docker Windows
+      - name: Setup WSL Windows
         if: ${{'windows-latest' == matrix.os}}
         uses: Vampire/setup-wsl@v5
+      - name: Setup Docker Windows
+        if: ${{'windows-latest' == matrix.os}}
+        run: |
+          curl --url "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe" -o DockerDesktopInstaller.exe
+          Start-Process 'DockerDesktopInstaller.exe' -Wait -ArgumentList 'install', '--accept-license'
       - name: run docker
         run: |
           docker info
