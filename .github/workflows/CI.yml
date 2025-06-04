@@ -55,10 +55,10 @@ jobs:
         uses: Vampire/setup-wsl@v5
       - name: run docker
         run: |
+          docker info
           docker pull alpine:latest
           docker run alpine
-          journalctl -u docker > output.txt
-          cat output.txt
+          
       - name: Run tests
         run: cargo test --all-features
 
