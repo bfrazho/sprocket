@@ -58,7 +58,7 @@ jobs:
         run: |
           curl --url "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe" -o DockerDesktopInstaller.exe
           echo "finished downloading. Starting install"
-          Start-Process 'DockerDesktopInstaller.exe' -Wait -ArgumentList 'install', '--accept-license'
+          Start-Process 'DockerDesktopInstaller.exe' -Wait -ArgumentList 'install', '--quiet', '--accept-license'
           echo "finished install"
       - name: run docker
         run: |
