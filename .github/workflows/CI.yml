@@ -63,8 +63,7 @@ jobs:
           curl -L --url "https://github.com/rancher-sandbox/rancher-desktop/releases/download/v1.19.1/Rancher.Desktop.Setup.1.19.1.msi" -o RancherDesktopInstaller.msi
           Start-Process msiexec.exe -Wait -ArgumentList "/package `"$pwd\RancherDesktopInstaller.msi`" /norestart /passive" -Verb runAs;
           #rancher --help
-          dockerd --help
-        addPath: "C:/Program Files/Rancher Desktop/resources/win32/bin"
+          Add-Content $env:GITHUB_PATH "C:/Program Files/Rancher Desktop/resources/win32/bin"
       - name: run docker
         run: |
           docker info
