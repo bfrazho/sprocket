@@ -66,6 +66,8 @@ jobs:
           Add-Content $env:GITHUB_PATH "C:\Program Files\Rancher Desktop\resources\win32\bin"
       - name: run docker
         run: |
+          rdctl start
+          rdctl version
           docker info
           docker pull --platform linux/amd64 alpine:latest
           docker run --platform linux/amd64 alpine
