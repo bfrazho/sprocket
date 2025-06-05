@@ -56,10 +56,6 @@ jobs:
       - name: Setup Docker Windows
         if: ${{'windows-2025' == matrix.os}}
         run: |
-          # curl --url "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe" -o DockerDesktopInstaller.exe
-          # echo "finished downloading. Starting install"
-          # Start-Process 'DockerDesktopInstaller.exe' -Wait -ArgumentList 'install', '--quiet', '--accept-license'
-          # echo "finished install"
           curl -L --url "https://github.com/rancher-sandbox/rancher-desktop/releases/download/v1.19.1/Rancher.Desktop.Setup.1.19.1.msi" -o RancherDesktopInstaller.msi
           Start-Process msiexec.exe -Wait -ArgumentList "/package `"$pwd\RancherDesktopInstaller.msi`" /norestart /passive" -Verb runAs;
           #rancher --help
@@ -68,6 +64,7 @@ jobs:
         run: |
           rdctl start --application.start-in-background --container-engine.name docker
           rdctl version
+          docker context ls
           docker --help
           docker info
           docker pull --platform linux/amd64 alpine:latest
