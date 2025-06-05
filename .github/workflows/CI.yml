@@ -64,6 +64,7 @@ jobs:
           Start-Process msiexec.exe -Wait -ArgumentList "/package `"$pwd\RancherDesktopInstaller.msi`" /norestart /passive" -Verb runAs;
           #rancher --help
           dockerd --help
+        addPath: "C:/Program Files/Rancher Desktop/resources/win32/bin"
       - name: run docker
         run: |
           docker info
