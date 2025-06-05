@@ -64,6 +64,8 @@ jobs:
         run: |
           rdctl start --application.start-in-background --container-engine.name docker
           rdctl version
+          wsl --set-default rancher-desktop
+          
           docker context ls
           docker --help
           docker info
