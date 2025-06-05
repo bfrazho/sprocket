@@ -66,7 +66,7 @@ jobs:
           Add-Content $env:GITHUB_PATH "C:\Program Files\Rancher Desktop\resources\resources\win32\bin"
       - name: run docker
         run: |
-          rdctl start
+          rdctl start --application.start-in-background --container-engine-name moby
           rdctl version
           docker info
           docker pull --platform linux/amd64 alpine:latest
