@@ -61,9 +61,10 @@ jobs:
           Add-Content $env:GITHUB_PATH "C:\Program Files\Rancher Desktop\resources\resources\win32\bin"
       - name: run docker
         run: |
-          wsl --set-default rancher-desktop
           rdctl start --application.start-in-background --container-engine.name moby
           rdctl version
+          rdctl shell ls -CF /tmp
+          wsl --set-default rancher-desktop
           docker context ls
           docker --help
           docker info
