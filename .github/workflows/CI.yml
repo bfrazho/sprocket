@@ -58,14 +58,12 @@ jobs:
         run: |
           curl -L --url "https://github.com/rancher-sandbox/rancher-desktop/releases/download/v1.19.1/Rancher.Desktop.Setup.1.19.1.msi" -o RancherDesktopInstaller.msi
           Start-Process msiexec.exe -Wait -ArgumentList "/package `"$pwd\RancherDesktopInstaller.msi`" /norestart /passive" -Verb runAs;
-          #rancher --help
           Add-Content $env:GITHUB_PATH "C:\Program Files\Rancher Desktop\resources\resources\win32\bin"
       - name: run docker
         run: |
-          rdctl start --application.start-in-background --container-engine.name docker
-          rdctl version
           wsl --set-default rancher-desktop
-          
+          rdctl start --application.start-in-background --container-engine.name moby
+          rdctl version
           docker context ls
           docker --help
           docker info
