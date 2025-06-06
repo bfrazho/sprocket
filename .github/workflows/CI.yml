@@ -62,6 +62,7 @@ jobs:
       - name: run docker
         run: |
           rdctl start --application.start-in-background --container-engine.name moby
+          rdctl create-profile
           rdctl version
           rdctl shell ls -CF /tmp
           wsl --set-default rancher-desktop
