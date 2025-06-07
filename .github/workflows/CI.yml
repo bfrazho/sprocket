@@ -73,6 +73,7 @@ jobs:
           podman machine init
           podman machine set --rootful
           podman machine start
+          $env:DOCKER_HOST='npipe:////./pipe/podman-machine-default'
           docker context ls
           docker --help
           docker info
