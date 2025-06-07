@@ -74,14 +74,11 @@ jobs:
           podman machine set --rootful
           podman machine start
           $env:DOCKER_HOST='npipe:////./pipe/podman-machine-default'
-          docker context ls
-          docker --help
-          docker info
-          docker pull --platform linux/amd64 alpine:latest
-          docker run --platform linux/amd64 alpine
           
       - name: Run tests
-        run: cargo test --all-features
+        run: |
+          $env:DOCKER_HOST='npipe:////./pipe/podman-machine-default
+          cargo test --all-features
 
   # docs:
   #   runs-on: ubuntu-latest
