@@ -35,7 +35,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest] #, macos-latest, ubuntu-latest]
+        os: [macos-latest]
+        # os: [windows-latest, macos-latest, ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
       - name: Update Rust
@@ -50,6 +51,7 @@ jobs:
           brew install lima-additional-guestagents
           # M1 and M2 Macs that the Github Actions supplies don't support nested virtualization. This forces x86 emulation to get around this
           colima start --network-address --arch x86_64
+
       - name: Setup WSL (Windows)
         if: ${{'windows-latest' == matrix.os}}
         uses: Vampire/setup-wsl@v5
