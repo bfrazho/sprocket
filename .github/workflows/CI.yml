@@ -65,7 +65,7 @@ jobs:
           podman machine init
           podman machine set --rootful
           podman machine start
-          Add-Content $env:GITHUB_ENV "DOCKER_HOST='npipe:////./pipe/podman-machine-default'" 
+          Add-Content $env:GITHUB_ENV "DOCKER_HOST=npipe:////./pipe/podman-machine-default" 
 
           
       - name: Run tests
