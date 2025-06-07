@@ -77,7 +77,7 @@ jobs:
           
       - name: Run tests
         run: |
-          $env:DOCKER_HOST='npipe:////./pipe/podman-machine-default
+          $env:DOCKER_HOST='npipe:////./pipe/podman-machine-default'
           cargo test --all-features
 
   # docs:
