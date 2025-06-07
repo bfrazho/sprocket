@@ -53,7 +53,8 @@ jobs:
           colima start --memory 4 --network-address --arch x86_64
           # echo "DOCKER_HOST=unix:///Users/runner/.colima/docker.sock" >> $GITHUB_ENV
           # echo "DOCKER_HOST=unix:///run/lima-guestagent.sock" >> $GITHUB_ENV
-          echo "DOCKER_HOST=unix:///Users/runner/.colima/_lima/colima/ga.sock" >> $GITHUB_ENV
+          # echo "DOCKER_HOST=unix:///Users/runner/.colima/_lima/colima/ga.sock" >> $GITHUB_ENV
+          echo "DOCKER_HOST=unix:///Users/runner/.colima/_lima/colima/ha.sock" >> $GITHUB_ENV
       - name: Setup WSL (Windows)
         if: ${{'windows-latest' == matrix.os}}
         uses: Vampire/setup-wsl@v5
