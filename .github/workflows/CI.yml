@@ -35,7 +35,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2025] #, macos-latest, ubuntu-latest]
+        os: [windows-latest] #, macos-latest, ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
       - name: Update Rust
@@ -50,34 +50,26 @@ jobs:
           brew install lima-additional-guestagents
           # M1 and M2 Macs that the Github Actions supplies don't support nested virtualization. This forces x86 emulation to get around this
           colima start --network-address --arch x86_64
-      - name: Setup WSL Windows
-        if: ${{'windows-2025' == matrix.os}}
+      - name: Setup WSL (Windows)
+        if: ${{'windows-latest' == matrix.os}}
         uses: Vampire/setup-wsl@v5
-      - name: Setup Docker Windows
-        if: ${{'windows-2025' == matrix.os}}
+      - name: Install Podman (Windows)
+        if: ${{'windows-latest' == matrix.os}}
         run: |
-          # curl -L --url "https://github.com/rancher-sandbox/rancher-desktop/releases/download/v1.19.1/Rancher.Desktop.Setup.1.19.1.msi" -o RancherDesktopInstaller.msi
-          # Start-Process msiexec.exe -Wait -ArgumentList "/package `"$pwd\RancherDesktopInstaller.msi`" /norestart /passive" -Verb runAs;
-          # Add-Content $env:GITHUB_PATH "C:\Program Files\Rancher Desktop\resources\resources\win32\bin"
-
           curl -L --url "https://github.com/containers/podman/releases/download/v5.5.1/podman-5.5.1-setup.exe" -o Podman.exe
           Start-Process Podman.exe -Wait -ArgumentList "/norestart /passive" -Verb runAs;
           Add-Content $env:GITHUB_PATH "C:\Program Files\RedHat\Podman\"
-      - name: run docker
+      - name: Statup Docker (Windows)
+        if: ${{'windows-latest' == matrix.os}}
         run: |
-          # rdctl start --application.auto-start --application.start-in-background --container-engine.name moby
-          # rdctl create-profile --input - --output reg
-          # rdctl version
-          # rdctl shell ls -CF /tmp
-          # wsl --set-default rancher-desktop
           podman machine init
           podman machine set --rootful
           podman machine start
-          $env:DOCKER_HOST='npipe:////./pipe/podman-machine-default'
+          run: echo "DOCKER_HOST='npipe:////./pipe/podman-machine-default''" | Out-File -FilePath $env:GITHUB_ENV -Append
+
           
       - name: Run tests
         run: |
-          $env:DOCKER_HOST='npipe:////./pipe/podman-machine-default'
           cargo test --all-features
 
   # docs:
