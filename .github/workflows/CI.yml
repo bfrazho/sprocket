@@ -55,7 +55,6 @@ jobs:
           # echo "DOCKER_HOST=unix:///run/lima-guestagent.sock" >> $GITHUB_ENV
           # echo "DOCKER_HOST=unix:///Users/runner/.colima/_lima/colima/ga.sock" >> $GITHUB_ENV
           echo "DOCKER_HOST=unix:///Users/runner/.colima/_lima/colima/ha.sock" >> $GITHUB_ENV
-          journalctl -u lima-guestagent.service -f -n 100
       - name: Setup WSL (Windows)
         if: ${{'windows-latest' == matrix.os}}
         uses: Vampire/setup-wsl@v5
